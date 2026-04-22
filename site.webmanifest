@@ -1,0 +1,24 @@
+{
+  "name": "Mensetsu Prep — Japanese Interview Guide",
+  "short_name": "Mensetsu",
+  "description": "Japanese language school & job interview preparation with 120+ questions in Japanese, Romaji, and Bengali.",
+  "icons": [
+    {
+      "src": "./android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#0f0e0b",
+  "background_color": "#faf8f3",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "start_url": "./",
+  "scope": "./"
+}
