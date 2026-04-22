@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日本語学校 面接対策 — Interview Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0e0e0e;
+  --paper: #f2ede4;
+  --cream: #e8e1d5;
+  --red: #c8001a;
+  --gold: #c9a84c;
+  --dim: #6b6459;
+  --border: 2px solid var(--ink);
+  --rule: 1px solid rgba(14,14,14,0.2);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'DM Mono', monospace;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── MASTHEAD ── */
+.masthead {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0;
+  border-bottom: 4px solid var(--red);
+  position: relative;
+  overflow: hidden;
+}
+.masthead::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent, transparent 60px,
+    rgba(255,255,255,0.02) 60px, rgba(255,255,255,0.02) 61px
+  );
+  pointer-events: none;
+}
+.masthead-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 40px 24px;
+  position: relative;
+}
+.masthead-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.pub-meta {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.8;
+}
+.pub-meta strong { color: var(--gold); }
+.edition-badge {
+  background: var(--red);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  white-space: nowrap;
+  align-self: flex-start;
+  margin-top: 4px;
+}
+.title-block { text-align: center; padding: 8px 0 4px; }
+.title-jp {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: var(--paper);
+}
+.title-jp span { color: var(--red); }
+.title-sub {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(0.85rem, 2vw, 1.1rem);
+  color: rgba(255,255,255,0.5);
+  margin-top: 6px;
+  letter-spacing: 0.05em;
+}
+.masthead-stats {
+  display: flex;
+  gap: 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 14px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.stat {
+  flex: 1;
+  min-width: 120px;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.1);
+  padding: 0 16px;
+}
+.stat:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-top: 3px;
+}
+
+/* ── CONTROLS BAR ── */
+.controls-bar {
+  background: var(--cream);
+  border-bottom: var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.controls-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 40px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.cat-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 7px 16px;
+  border: 2px solid var(--ink);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.12s;
+  white-space: nowrap;
+}
+.cat-btn:hover, .cat-btn.active {
+  background: var(--ink);
+  color: var(--paper);
+}
+.cat-btn.active { border-color: var(--ink); }
+
+.mode-toggle {
+  margin-left: auto;
+  display: flex;
+  gap: 0;
+}
+.mode-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  padding: 7px 18px;
+  border: 2px solid var(--ink);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.mode-btn:first-child { border-right: 1px solid var(--ink); }
+.mode-btn.active { background: var(--red); color: #fff; border-color: var(--red); }
+.mode-btn:hover:not(.active) { background: var(--cream); }
+
+.q-count {
+  font-size: 0.65rem;
+  color: var(--dim);
+  letter-spacing: 0.1em;
+  border: 1px solid currentColor;
+  padding: 4px 10px;
+}
+
+/* ── MAIN LAYOUT ── */
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 40px;
+}
+
+/* ── LIST MODE ── */
+.category-section { margin-bottom: 56px; }
+.cat-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid var(--ink);
+}
+.cat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--red);
+  line-height: 1;
+}
+.cat-title-wrap {}
+.cat-title-en {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  font-style: italic;
+}
+.cat-title-jp {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--dim);
+  letter-spacing: 0.1em;
+  margin-top: 2px;
+}
+.cat-count-tag {
+  margin-left: auto;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--dim);
+  color: var(--dim);
+  padding: 3px 10px;
+  align-self: flex-start;
+}
+
+.q-list { display: flex; flex-direction: column; gap: 16px; }
+
+.q-item {
+  border: var(--border);
+  background: var(--paper);
+  position: relative;
+  transition: transform 0.12s, box-shadow 0.12s;
+  cursor: pointer;
+}
+.q-item:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 5px 5px 0 var(--ink);
+}
+.q-item-head {
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+  border-bottom: var(--border);
+}
+.q-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--paper);
+  background: var(--ink);
+  padding: 10px 16px;
+  min-width: 52px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.q-text-wrap {
+  flex: 1;
+  padding: 10px 16px;
+}
+.q-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 3px;
+}
+.q-jp {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.q-en {
+  font-size: 0.75rem;
+  color: var(--dim);
+  margin-top: 3px;
+  font-style: italic;
+}
+.q-toggle-btn {
+  padding: 10px 16px;
+  background: transparent;
+  border: none;
+  border-left: var(--border);
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: var(--dim);
+  transition: background 0.1s, color 0.1s;
+  flex-shrink: 0;
+}
+.q-toggle-btn:hover { background: var(--ink); color: var(--paper); }
+.q-toggle-btn.open { background: var(--red); color: #fff; border-color: var(--red); }
+
+.q-answer {
+  display: none;
+  padding: 16px 20px 16px 52px;
+  border-top: none;
+  background: #f9f5ef;
+}
+.q-answer.visible { display: block; }
+
+.answer-block { margin-bottom: 16px; }
+.answer-block:last-child { margin-bottom: 0; }
+
+.answer-label {
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.answer-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--red);
+  opacity: 0.3;
+}
+.ans-jp {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.9;
+  background: #fff;
+  border: 1px solid rgba(14,14,14,0.12);
+  padding: 12px 16px;
+  border-left: 3px solid var(--red);
+}
+.ans-en {
+  font-size: 0.78rem;
+  line-height: 1.7;
+  color: #555;
+  margin-top: 8px;
+  padding-left: 10px;
+  border-left: 2px solid var(--gold);
+}
+.ans-tip {
+  font-size: 0.72rem;
+  background: #fff8e6;
+  border: 1px solid var(--gold);
+  border-left: 3px solid var(--gold);
+  padding: 8px 12px;
+  margin-top: 10px;
+  color: #6b5a1e;
+  line-height: 1.6;
+}
+.ans-tip strong { color: #8b6914; }
+
+/* ── FLASHCARD MODE ── */
+#flashcard-mode {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+#flashcard-mode.visible { display: flex; }
+
+.fc-progress-bar-wrap {
+  width: 100%;
+  max-width: 680px;
+  background: var(--cream);
+  border: var(--border);
+  height: 6px;
+  margin-bottom: 24px;
+}
+.fc-progress-bar {
+  height: 100%;
+  background: var(--red);
+  transition: width 0.3s;
+}
+.fc-counter {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 28px;
+  text-align: center;
+}
+.fc-counter strong { color: var(--ink); font-size: 1rem; }
+
+.flashcard {
+  width: 100%;
+  max-width: 680px;
+  height: 380px;
+  perspective: 1200px;
+  cursor: pointer;
+  margin-bottom: 24px;
+}
+.fc-inner {
+  width: 100%; height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(.4,0,.2,1);
+}
+.flashcard.flipped .fc-inner { transform: rotateY(180deg); }
+
+.fc-front, .fc-back {
+  position: absolute;
+  width: 100%; height: 100%;
+  backface-visibility: hidden;
+  border: 3px solid var(--ink);
+  display: flex;
+  flex-direction: column;
+}
+.fc-front {
+  background: var(--ink);
+  color: var(--paper);
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+  text-align: center;
+  box-shadow: 8px 8px 0 rgba(0,0,0,0.25);
+}
+.fc-back {
+  background: var(--paper);
+  transform: rotateY(180deg);
+  padding: 24px 28px;
+  justify-content: flex-start;
+  overflow-y: auto;
+  box-shadow: 8px 8px 0 rgba(0,0,0,0.15);
+}
+
+.fc-cat-tag {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 3px 8px;
+}
+.fc-num {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.12);
+  line-height: 1;
+}
+.fc-q-jp {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: clamp(1rem, 3vw, 1.4rem);
+  font-weight: 700;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.fc-q-en {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+  font-style: italic;
+}
+.fc-tap-hint {
+  position: absolute;
+  bottom: 14px;
+  right: 16px;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+}
+
+.fc-back-label {
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 10px;
+  display: block;
+}
+.fc-back .q-jp-recap {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--dim);
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--cream);
+  line-height: 1.5;
+}
+.fc-ans-jp {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.9;
+  margin-bottom: 10px;
+}
+.fc-ans-en {
+  font-size: 0.75rem;
+  color: #666;
+  line-height: 1.7;
+  border-left: 2px solid var(--gold);
+  padding-left: 10px;
+}
+
+.fc-controls {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  max-width: 680px;
+  justify-content: center;
+}
+.fc-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  cursor: pointer;
+  flex: 1;
+  max-width: 200px;
+  transition: all 0.1s;
+}
+.fc-btn:hover { background: var(--ink); color: var(--paper); }
+.fc-btn.primary { background: var(--red); color: #fff; border-color: var(--red); }
+.fc-btn.primary:hover { background: #a0001a; border-color: #a0001a; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ink);
+  color: rgba(255,255,255,0.3);
+  text-align: center;
+  padding: 24px 40px;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-top: 4px solid var(--red);
+  margin-top: 60px;
+}
+
+/* ── ANIM ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.category-section { animation: fadeUp 0.4s ease both; }
+.category-section:nth-child(1) { animation-delay: 0.05s; }
+.category-section:nth-child(2) { animation-delay: 0.1s; }
+.category-section:nth-child(3) { animation-delay: 0.15s; }
+.category-section:nth-child(4) { animation-delay: 0.2s; }
+.category-section:nth-child(5) { animation-delay: 0.25s; }
+.category-section:nth-child(6) { animation-delay: 0.3s; }
+
+@media(max-width:640px){
+  .masthead-inner { padding: 20px; }
+  .controls-inner { padding: 10px 16px; }
+  .main { padding: 24px 16px; }
+  .q-answer { padding-left: 16px; }
+  .fc-front { padding: 24px 20px; }
+  .flashcard { height: 320px; }
+}
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="masthead-top">
+      <div class="pub-meta">
+        <strong>日本語学校</strong> INTERVIEW PREPARATION GUIDE<br>
+        A-Category Language School · JLPT N4–N5 Level
+      </div>
+      <div class="edition-badge">★ A-Category Edition</div>
+    </div>
+    <div class="title-block">
+      <div class="title-jp">面接<span>対策</span></div>
+      <div class="title-sub">Mensetsu Taisaku — Complete Interview Q&A Reference</div>
+    </div>
+    <div class="masthead-stats">
+      <div class="stat"><div class="stat-num">55</div><div class="stat-label">Questions</div></div>
+      <div class="stat"><div class="stat-num">8</div><div class="stat-label">Categories</div></div>
+      <div class="stat"><div class="stat-num">2</div><div class="stat-label">Study Modes</div></div>
+      <div class="stat"><div class="stat-num">A</div><div class="stat-label">Category</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- CONTROLS -->
+<div class="controls-bar">
+  <div class="controls-inner">
+    <button class="cat-btn active" onclick="filterCat('all', this)">All</button>
+    <button class="cat-btn" onclick="filterCat('self', this)">Self Intro</button>
+    <button class="cat-btn" onclick="filterCat('study', this)">Study Goals</button>
+    <button class="cat-btn" onclick="filterCat('life', this)">Daily Life</button>
+    <button class="cat-btn" onclick="filterCat('japan', this)">Japan</button>
+    <button class="cat-btn" onclick="filterCat('finance', this)">Finance</button>
+    <button class="cat-btn" onclick="filterCat('future', this)">Future Plans</button>
+    <button class="cat-btn" onclick="filterCat('motivation', this)">Motivation</button>
+    <button class="cat-btn" onclick="filterCat('misc', this)">Other</button>
+    <span class="q-count" id="qCount">55 Q</span>
+    <div class="mode-toggle">
+      <button class="mode-btn active" onclick="setMode('list', this)">List</button>
+      <button class="mode-btn" onclick="setMode('flash', this)">Flashcard</button>
+    </div>
+  </div>
+</div>
+
+<!-- LIST MODE -->
+<div class="main" id="list-mode"></div>
+
+<!-- FLASHCARD MODE -->
+<div class="main" id="flashcard-mode">
+  <div class="fc-progress-bar-wrap">
+    <div class="fc-progress-bar" id="fcProgressBar" style="width:0%"></div>
+  </div>
+  <div class="fc-counter" id="fcCounter"><strong>1</strong> / 55</div>
+  <div class="flashcard" id="flashcard" onclick="flipCard()">
+    <div class="fc-inner" id="fcInner">
+      <div class="fc-front" id="fcFront">
+        <div class="fc-cat-tag" id="fcCatTag">—</div>
+        <div class="fc-num" id="fcNumBg">01</div>
+        <div class="fc-q-jp" id="fcQjp">質問</div>
+        <div class="fc-q-en" id="fcQen">Question</div>
+        <div class="fc-tap-hint">tap to reveal answer</div>
+      </div>
+      <div class="fc-back" id="fcBack">
+        <span class="fc-back-label">Model Answer — 模範回答</span>
+        <div class="q-jp-recap" id="fcQrecap"></div>
+        <div class="fc-ans-jp" id="fcAnsJp"></div>
+        <div class="fc-ans-en" id="fcAnsEn"></div>
+      </div>
+    </div>
+  </div>
+  <div class="fc-controls">
+    <button class="fc-btn" onclick="prevCard()">← Prev</button>
+    <button class="fc-btn primary" onclick="nextCard()">Next →</button>
+  </div>
+</div>
+
+<footer>日本語学校 面接対策 · A-Category Interview Guide · Study Hard, Dream Big · がんばってください！</footer>
+
+<script>
+const QUESTIONS = [
+  // ── SELF INTRODUCTION ──
+  {
+    cat: 'self', catLabel: 'Self Introduction', catJp: '自己紹介',
+    q: 'じこしょうかいをしてください。', qen: 'Please introduce yourself.',
+    a: 'はじめまして。わたしは〔名前〕と申します。〔国名〕から来ました。年齢は〔年齢〕歳です。〔大学・専門学校〕で〔専攻〕を勉強しました。趣味は〔趣味〕です。よろしくお願いいたします。',
+    aen: 'Nice to meet you. My name is [Name]. I come from [Country]. I am [Age] years old. I studied [Major] at [University/College]. My hobby is [Hobby]. I look forward to your guidance.',
+    tip: '💡 Keep it under 60 seconds. Speak slowly and clearly. Bow slightly at the end.'
+  },
+  {
+    cat: 'self', catLabel: 'Self Introduction', catJp: '自己紹介',
+    q: 'おなまえは何ですか。', qen: 'What is your name?',
+    a: 'はい、わたしの名前は〔名前〕です。どうぞよろしくお願いいたします。',
+    aen: 'Yes, my name is [Name]. Nice to meet you.',
+    tip: '💡 Always add よろしくお願いします after your name in an interview setting.'
+  },
+  {
+    cat: 'self', catLabel: 'Self Introduction', catJp: '自己紹介',
+    q: 'おいくつですか / 年齢を教えてください。', qen: 'How old are you?',
+    a: 'はい、わたしは〔年齢〕歳です。〔年〕年〔月〕月〔日〕日生まれです。',
+    aen: 'Yes, I am [Age] years old. I was born on [Day] [Month] [Year].',
+    tip: '💡 Know how to say your birthdate in Japanese: 〔年〕年〔月〕月〔日〕日うまれです。'
+  },
+  {
+    cat: 'self', catLabel: 'Self Introduction', catJp: '自己紹介',
+    q: 'どこから来ましたか / 出身はどこですか。', qen: 'Where are you from?',
+    a: 'バングラデシュから来ました。バングラデシュはアジアにある国で、首都はダッカです。人口は約1億7千万人です。',
+    aen: 'I am from Bangladesh. Bangladesh is a country in Asia. Its capital is Dhaka and its population is about 170 million people.',
+    tip: '💡 Add a brief fact about your country to show cultural awareness.'
+  },
+  {
+    cat: 'self', catLabel: 'Self Introduction', catJp: '自己紹介',
+    q: 'ご家族について教えてください。', qen: 'Please tell me about your family.',
+    a: '家族は〔人数〕人です。父と母と〔兄弟姉妹〕がいます。父は〔職業〕で、母は〔職業〕をしています。家族はとても仲がよいです。',
+    aen: 'My family has [Number] members. I have a father, mother, and [siblings]. My father is a [occupation] and my mother is a [occupation]. We are a very close family.',
+    tip: '💡 Interviewers want to see your family is supportive. Mention that your family supports your study plan.'
+  },
+  {
+    cat: 'self', catLabel: 'Self Introduction', catJp: '自己紹介',
+    q: 'しゅみは何ですか。', qen: 'What are your hobbies?',
+    a: 'わたしの趣味は〔趣味〕です。〔趣味〕をするとき、とても楽しいです。日本でも続けたいと思っています。',
+    aen: 'My hobby is [Hobby]. I enjoy it very much. I hope to continue it in Japan as well.',
+    tip: '💡 Good answers: reading, cooking, music, sports, traveling. Avoid saying "I have no hobbies."'
+  },
+  {
+    cat: 'self', catLabel: 'Self Introduction', catJp: '自己紹介',
+    q: 'せいかくを教えてください。', qen: 'Tell me about your personality.',
+    a: 'わたしは責任感が強く、まじめな性格です。また、人と話すことが好きで、明るい性格だと思います。困ったときは、諦めずにがんばります。',
+    aen: 'I have a strong sense of responsibility and am serious. I also like talking with people and believe I have a bright personality. When things get difficult, I never give up.',
+    tip: '💡 Use positive words: まじめ (serious), 明るい (cheerful), 責任感が強い (responsible).'
+  },
+
+  // ── STUDY GOALS ──
+  {
+    cat: 'study', catLabel: 'Study Goals', catJp: '勉強の目標',
+    q: 'なぜ日本語を勉強したいのですか。', qen: 'Why do you want to study Japanese?',
+    a: '日本語は世界でとても重要な言語です。また、日本の文化やアニメ、ビジネスに興味があります。日本語を話せるようになることで、将来の仕事に役立てたいと思っています。',
+    aen: 'Japanese is a very important language in the world. I am also interested in Japanese culture, anime, and business. I believe being able to speak Japanese will be very useful for my future career.',
+    tip: '💡 Give both cultural and professional reasons. Pure anime interest alone is not enough for an A-category school.'
+  },
+  {
+    cat: 'study', catLabel: 'Study Goals', catJp: '勉強の目標',
+    q: 'なぜこの学校を選びましたか。', qen: 'Why did you choose this school?',
+    a: 'この学校は優秀な先生方と良いカリキュラムがあると聞きました。また、JLPTのための対策授業もあり、大学進学のサポートも充実していると思ったからです。',
+    aen: 'I heard this school has excellent teachers and a good curriculum. It also has JLPT preparation classes and strong support for university advancement, which is why I chose it.',
+    tip: '💡 Research the school beforehand. Mention specific programs or features unique to that school.'
+  },
+  {
+    cat: 'study', catLabel: 'Study Goals', catJp: '勉強の目標',
+    q: 'どのくらい日本語を勉強しましたか。', qen: 'How long have you studied Japanese?',
+    a: '〔期間〕間、日本語を勉強しています。現在はJLPT N4のレベルです。ひらがなとカタカナは全部読めます。漢字も少し勉強しました。',
+    aen: 'I have been studying Japanese for [period]. My current level is JLPT N4. I can read all of hiragana and katakana. I have also studied some kanji.',
+    tip: '💡 Be honest about your level. Mentioning JLPT certification is a strong plus.'
+  },
+  {
+    cat: 'study', catLabel: 'Study Goals', catJp: '勉強の目標',
+    q: '日本語学校を出た後、どうしたいですか。', qen: 'What do you want to do after language school?',
+    a: '日本語学校を卒業した後、日本の大学または専門学校に進学したいと思っています。〔専攻〕を専門的に学び、将来はその分野で活躍したいです。',
+    aen: 'After graduating from language school, I want to advance to a Japanese university or vocational school. I would like to study [major] in depth and in the future work in that field.',
+    tip: '💡 Always show a clear academic path: Language School → University/専門学校 → Career.'
+  },
+  {
+    cat: 'study', catLabel: 'Study Goals', catJp: '勉強の目標',
+    q: 'どんな勉強をしたいですか。', qen: 'What subjects do you want to study?',
+    a: '日本語の会話と文法をしっかり勉強したいです。また、JLPTのN2またはN1を取得することを目標にしています。大学進学のために専門的な日本語も学びたいです。',
+    aen: 'I want to study Japanese conversation and grammar properly. My goal is to obtain JLPT N2 or N1. I also want to learn academic Japanese for university entrance.',
+    tip: '💡 Mentioning JLPT N2/N1 as a goal shows the interviewer you are serious.'
+  },
+  {
+    cat: 'study', catLabel: 'Study Goals', catJp: '勉強の目標',
+    q: '大学や専門学校で何を勉強したいですか。', qen: 'What do you want to study at university or vocational school?',
+    a: '〔専攻分野〕を勉強したいです。なぜなら、〔理由〕だからです。将来は〔職業〕になりたいと思っています。',
+    aen: 'I want to study [field]. This is because [reason]. In the future, I hope to become a [career].',
+    tip: '💡 Be specific. Vague answers like "I want to study something useful" are weak. Have a clear major in mind.'
+  },
+
+  // ── DAILY LIFE ──
+  {
+    cat: 'life', catLabel: 'Daily Life', catJp: '日常生活',
+    q: '毎日、何時間日本語を勉強していますか。', qen: 'How many hours a day do you study Japanese?',
+    a: '毎日、だいたい〔時間〕時間勉強しています。朝は単語を覚えて、夜は文法を練習しています。週末はもっと勉強する時間があります。',
+    aen: 'I study about [hours] hours every day. In the morning I memorize vocabulary, and at night I practice grammar. On weekends I have more time to study.',
+    tip: '💡 Say at least 2–4 hours per day. One hour sounds too little.'
+  },
+  {
+    cat: 'life', catLabel: 'Daily Life', catJp: '日常生活',
+    q: '日本に来たら、どんな生活をしたいですか。', qen: 'What kind of life do you want to live in Japan?',
+    a: '日本に来たら、毎日一生懸命日本語を勉強したいです。規則正しい生活を送り、アルバイトをしながら生活費の一部を賄いたいと思っています。また、日本の文化も体験したいです。',
+    aen: 'When I come to Japan, I want to study Japanese hard every day. I want to live a disciplined life and do part-time work to help cover some living expenses. I also want to experience Japanese culture.',
+    tip: '💡 Show discipline and structure. Mention studying as the main priority, part-time work as secondary.'
+  },
+  {
+    cat: 'life', catLabel: 'Daily Life', catJp: '日常生活',
+    q: 'アルバイトをしますか。', qen: 'Will you do part-time work?',
+    a: 'はい、週に〔時間〕時間ほどアルバイトをしたいと思っています。しかし、勉強が一番大切だと思っているので、アルバイトは勉強に影響しない範囲でします。',
+    aen: 'Yes, I would like to work part-time for about [hours] hours a week. However, I believe studying is most important, so I will only work as much as it does not affect my studies.',
+    tip: '💡 Students on a study visa can work up to 28 hours per week. Show that study comes first.'
+  },
+  {
+    cat: 'life', catLabel: 'Daily Life', catJp: '日常生活',
+    q: '日本でひとり暮らしはできますか。', qen: 'Can you live alone in Japan?',
+    a: 'はい、一人暮らしはできると思います。料理や洗濯なども自分でできます。また、規則正しい生活を心がけます。困ったときは、学校の先生や友達に相談します。',
+    aen: 'Yes, I believe I can live alone. I can cook and do laundry by myself. I will try to maintain a disciplined lifestyle. When I have trouble, I will consult my teachers or friends.',
+    tip: '💡 Show independence and responsibility. Mention that you will seek help from the school if needed.'
+  },
+  {
+    cat: 'life', catLabel: 'Daily Life', catJp: '日常生活',
+    q: '日本の食べ物は食べられますか。', qen: 'Can you eat Japanese food?',
+    a: 'はい、食べられます。日本料理はとても好きです。特にラーメンやお寿司が好きです。バングラデシュでも日本料理を食べたことがあります。',
+    aen: 'Yes, I can eat Japanese food. I really like Japanese cuisine. I especially like ramen and sushi. I have eaten Japanese food in Bangladesh too.',
+    tip: '💡 Note: If you are Muslim, you can mention that you will look for halal options, as many Japanese cities have halal restaurants.'
+  },
+  {
+    cat: 'life', catLabel: 'Daily Life', catJp: '日常生活',
+    q: '日本の冬や夏はどうですか。', qen: 'What do you think about Japan\'s summer and winter?',
+    a: '日本の夏はとても暑く湿気が多いと聞いています。冬は寒いですが、雪を見てみたいです。どちらも楽しみにしています。しっかり準備をして、体調管理をしたいです。',
+    aen: 'I heard Japan\'s summer is very hot and humid. The winter is cold but I am looking forward to seeing snow. I am excited for both. I will prepare well and take care of my health.',
+    tip: '💡 Show awareness of Japanese climate, and that you are positive and prepared.'
+  },
+
+  // ── JAPAN ──
+  {
+    cat: 'japan', catLabel: 'About Japan', catJp: '日本について',
+    q: 'なぜ日本に来たいですか。', qen: 'Why do you want to come to Japan?',
+    a: '日本は教育水準が高く、安全で、技術が発達した国だと思います。また、日本語と日本の文化を直接学べる最高の環境だと思っています。将来のキャリアのためにも、日本で勉強することが一番良いと考えています。',
+    aen: 'I believe Japan has a high standard of education, is safe, and is a technologically advanced country. I also think it is the best environment to directly learn Japanese and Japanese culture. I believe studying in Japan is the best choice for my future career.',
+    tip: '💡 Focus on Japan\'s educational quality and your career goals — not just anime or travel.'
+  },
+  {
+    cat: 'japan', catLabel: 'About Japan', catJp: '日本について',
+    q: '日本について知っていることを教えてください。', qen: 'Tell me what you know about Japan.',
+    a: '日本は東アジアに位置する島国で、首都は東京です。人口は約1億2千万人です。日本は経済大国であり、テクノロジー、アニメ、食文化でも世界的に有名です。また、礼儀正しさと清潔さの文化でも知られています。',
+    aen: 'Japan is an island nation in East Asia with Tokyo as its capital. The population is about 120 million. Japan is an economic power and is world-famous for technology, anime, and food culture. It is also known for its culture of politeness and cleanliness.',
+    tip: '💡 Show genuine knowledge. Mentioning population, geography, and culture shows you did your research.'
+  },
+  {
+    cat: 'japan', catLabel: 'About Japan', catJp: '日本について',
+    q: '日本の文化で興味があるものは何ですか。', qen: 'What aspects of Japanese culture are you interested in?',
+    a: '日本の伝統文化、特に茶道や剣道、浮世絵に興味があります。また、日本の現代文化であるアニメやマンガも好きです。日本に行ったら、お祭りや神社も訪れてみたいです。',
+    aen: 'I am interested in traditional Japanese culture, especially the tea ceremony, kendo, and ukiyo-e. I also enjoy modern Japanese culture like anime and manga. When I go to Japan, I would like to visit festivals and shrines.',
+    tip: '💡 Mentioning traditional culture alongside modern culture shows depth of interest.'
+  },
+  {
+    cat: 'japan', catLabel: 'About Japan', catJp: '日本について',
+    q: '日本へ行ったことがありますか。', qen: 'Have you ever been to Japan?',
+    a: 'いいえ、まだ行ったことがありません。しかし、いつも日本に行きたいと思っていました。今回、日本語学校に入学することで、ようやくその夢が叶います。',
+    aen: 'No, I have not been to Japan yet. However, I have always wanted to go. By entering the Japanese language school, my dream will finally come true.',
+    tip: '💡 If you have been, describe the experience positively. If not, express strong enthusiasm.'
+  },
+  {
+    cat: 'japan', catLabel: 'About Japan', catJp: '日本について',
+    q: '日本のどんなところに行ってみたいですか。', qen: 'Where in Japan would you like to visit?',
+    a: '東京や京都に行ってみたいです。東京は現代的でにぎやかな都市、京都は歴史的な神社やお寺が多いと聞いています。また、富士山も見てみたいです。',
+    aen: 'I would like to visit Tokyo and Kyoto. Tokyo is a modern and lively city, while Kyoto has many historical shrines and temples. I also want to see Mt. Fuji.',
+    tip: '💡 Name specific places and give a reason — it shows genuine interest.'
+  },
+  {
+    cat: 'japan', catLabel: 'About Japan', catJp: '日本について',
+    q: '日本語と日本の文化をどこで学びましたか。', qen: 'Where did you learn about Japanese language and culture?',
+    a: '日本語は〔学習機関・独学〕で学びました。また、日本のアニメや映画を見たり、日本語の本を読んだりして、文化についても学びました。',
+    aen: 'I learned Japanese at [school/self-study]. I also learned about culture by watching Japanese anime and movies and reading Japanese books.',
+    tip: '💡 Mentioning self-study efforts alongside formal learning shows motivation.'
+  },
+
+  // ── FINANCE ──
+  {
+    cat: 'finance', catLabel: 'Finances', catJp: '経済的なこと',
+    q: '日本での生活費はどうするつもりですか。', qen: 'How do you plan to cover your living expenses in Japan?',
+    a: '生活費は主に家族からの仕送りで賄う予定です。また、週に〔時間〕時間ほどアルバイトをして、生活費の一部を自分で稼ぐつもりです。家族はわたしの留学を応援してくれています。',
+    aen: 'I plan to cover living expenses mainly through financial support from my family. I also plan to work part-time about [hours] hours per week to earn part of my expenses. My family fully supports my study abroad.',
+    tip: '💡 Show that finances are stable. Interviewers worry about students dropping out due to money problems.'
+  },
+  {
+    cat: 'finance', catLabel: 'Finances', catJp: '経済的なこと',
+    q: '学費はどのように払いますか。', qen: 'How will you pay your tuition fees?',
+    a: '学費は家族が準備してくれています。〔父/母/兄〕が〔職業〕をしており、毎月〔金額〕円を仕送りしてもらう予定です。銀行に十分な資金があります。',
+    aen: 'My family has prepared the tuition fees. My [father/mother/brother] works as a [occupation] and plans to send me [amount] yen per month. There are sufficient funds in the bank.',
+    tip: '💡 Know the exact monthly cost of the school you are applying to. Show awareness of specific amounts.'
+  },
+  {
+    cat: 'finance', catLabel: 'Finances', catJp: '経済的なこと',
+    q: 'ご両親の仕事と収入を教えてください。', qen: 'Please tell me about your parents\' occupation and income.',
+    a: '父は〔職業〕をしており、毎月〔金額〕タカ（約〔円〕円）を稼いでいます。母は〔職業〕です。家族の経済状況は安定しています。',
+    aen: 'My father works as a [occupation] and earns about [amount] taka (about [yen] yen) per month. My mother is a [occupation]. Our family\'s financial situation is stable.',
+    tip: '💡 Convert the amount to Japanese yen. Prepare exact figures before the interview.'
+  },
+  {
+    cat: 'finance', catLabel: 'Finances', catJp: '経済的なこと',
+    q: '留学費用の見通しについて教えてください。', qen: 'Tell me about your financial outlook for studying abroad.',
+    a: '日本語学校の学費と生活費を合わせて、月に約〔金額〕万円が必要だと計算しています。家族からの仕送りとアルバイトで、問題なく賄えると思っています。',
+    aen: 'Including tuition and living expenses, I calculate needing about [amount] ten-thousand yen per month. With family remittances and part-time work, I believe I can manage without problems.',
+    tip: '💡 Standard monthly cost in Japan: ¥100,000–¥150,000 (Tokyo). Show you have done the math.'
+  },
+
+  // ── FUTURE PLANS ──
+  {
+    cat: 'future', catLabel: 'Future Plans', catJp: '将来の計画',
+    q: '将来、何になりたいですか。', qen: 'What do you want to become in the future?',
+    a: '将来は〔職業〕になりたいです。日本で〔専攻〕を学んだ知識とスキルを活かして、〔国名〕または日本で活躍したいと思っています。',
+    aen: 'In the future, I want to become a [career]. Using the knowledge and skills I learn from studying [major] in Japan, I hope to work actively in [country] or Japan.',
+    tip: '💡 Be specific. Generic answers like "I want a good job" are not convincing.'
+  },
+  {
+    cat: 'future', catLabel: 'Future Plans', catJp: '将来の計画',
+    q: '卒業後、日本に残りますか、それとも帰国しますか。', qen: 'After graduation, will you stay in Japan or return home?',
+    a: '大学または専門学校を卒業した後、日本で就職したいと思っています。しかし、将来的には、習得した技術や知識を母国に持ち帰り、貢献したいという気持ちもあります。',
+    aen: 'After graduating from university or vocational school, I would like to find work in Japan. However, I also have the desire to eventually bring the skills and knowledge I have acquired back to my home country and contribute there.',
+    tip: '💡 Saying you want to work in Japan first, then return to help your country, is a very well-received answer.'
+  },
+  {
+    cat: 'future', catLabel: 'Future Plans', catJp: '将来の計画',
+    q: '日本でのキャリアプランを教えてください。', qen: 'Tell me your career plan in Japan.',
+    a: 'まず日本語学校でJLPT N2以上を取得し、その後〔専門学校・大学〕に進学します。専門的な知識を身につけた後、日本の〔業界〕の会社に就職したいと思っています。',
+    aen: 'First, I will obtain JLPT N2 or higher at the language school, then advance to [vocational school/university]. After gaining specialized knowledge, I would like to find employment at a company in Japan\'s [industry].',
+    tip: '💡 Show a stepwise, realistic plan: Language School → Higher Education → Employment.'
+  },
+  {
+    cat: 'future', catLabel: 'Future Plans', catJp: '将来の計画',
+    q: '日本語がうまくなったら、何をしたいですか。', qen: 'What do you want to do when your Japanese improves?',
+    a: '日本語が上手になったら、日本人の友達をたくさん作りたいです。また、日本の大学や専門学校に進学し、専門的な勉強をしっかりしたいです。将来は日本語を使って仕事をしたいです。',
+    aen: 'When my Japanese improves, I want to make many Japanese friends. I also want to advance to a Japanese university or vocational school and study my specialization properly. In the future, I want to work using Japanese.',
+    tip: '💡 Connect language ability directly to academic and career goals.'
+  },
+
+  // ── MOTIVATION ──
+  {
+    cat: 'motivation', catLabel: 'Motivation', catJp: 'モチベーション',
+    q: '留学の目的を教えてください。', qen: 'Please tell me the purpose of your study abroad.',
+    a: '留学の目的は、日本語を習得し、日本の高等教育を受けることです。バングラデシュでは得られない専門的な知識とスキルを日本で身につけ、将来のキャリアに活かしたいと思っています。',
+    aen: 'The purpose of studying abroad is to master Japanese and receive higher education in Japan. I want to acquire specialized knowledge and skills in Japan that I cannot get in Bangladesh, and apply them to my future career.',
+    tip: '💡 Frame your answer around education and career — not just cultural experience or travel.'
+  },
+  {
+    cat: 'motivation', catLabel: 'Motivation', catJp: 'モチベーション',
+    q: '日本語の勉強は楽しいですか。どんなところが難しいですか。', qen: 'Do you enjoy studying Japanese? What do you find difficult?',
+    a: 'はい、日本語の勉強はとても楽しいです。特に新しい単語を覚えると嬉しいです。難しいのは、漢字と敬語です。でも、毎日練習して、必ず克服したいと思っています。',
+    aen: 'Yes, studying Japanese is very enjoyable. I especially feel happy when I learn new vocabulary. I find kanji and keigo (formal speech) difficult. But I practice every day and am determined to overcome these challenges.',
+    tip: '💡 Showing awareness of your weaknesses and commitment to improving is very positive.'
+  },
+  {
+    cat: 'motivation', catLabel: 'Motivation', catJp: 'モチベーション',
+    q: 'なぜ日本語学校の中でもこの学校に来たいと思ったのですか。', qen: 'Among all language schools, why do you want to come to this particular school?',
+    a: 'この学校は進学実績が良く、先生方の指導力が高いと評判だと聞いています。また、留学生へのサポートも充実しているので、安心して勉強に集中できると思いました。',
+    aen: 'I have heard that this school has an excellent track record for academic advancement and highly capable teachers. The support for international students is also thorough, so I felt I could focus on my studies with peace of mind.',
+    tip: '💡 Research the school\'s actual reputation and mention it specifically.'
+  },
+  {
+    cat: 'motivation', catLabel: 'Motivation', catJp: 'モチベーション',
+    q: '勉強で困ったとき、どうしますか。', qen: 'What will you do if you have difficulties in your studies?',
+    a: '勉強で困ったときは、まず自分で調べます。それでも解決しない場合は、先生や友達に質問します。困難なことがあっても、諦めないで努力することが大切だと思っています。',
+    aen: 'When I have difficulties with my studies, I first try to research on my own. If that does not work, I ask my teachers or friends. Even when things are difficult, I believe it is important not to give up and to keep working hard.',
+    tip: '💡 Show self-reliance first, then willingness to seek help. Schools love resourceful, independent students.'
+  },
+  {
+    cat: 'motivation', catLabel: 'Motivation', catJp: 'モチベーション',
+    q: '日本に来ることに不安はありますか。', qen: 'Are you anxious about coming to Japan?',
+    a: '少し不安な気持ちもありますが、それよりも楽しみな気持ちの方が大きいです。言語や文化の違いに戸惑うこともあると思いますが、一生懸命勉強して、早く慣れたいと思っています。',
+    aen: 'I do feel a little anxious, but my excitement is much greater. I think there will be times when I am confused by language and cultural differences, but I want to study hard and adjust quickly.',
+    tip: '💡 Acknowledge some anxiety (it\'s human), but show that excitement and determination dominate.'
+  },
+
+  // ── MISCELLANEOUS ──
+  {
+    cat: 'misc', catLabel: 'Miscellaneous', catJp: 'その他',
+    q: '日本語でどんなことができますか。', qen: 'What can you do in Japanese?',
+    a: '日本語で簡単な会話ができます。挨拶、自己紹介、買い物、道案内などは日本語でできます。また、ひらがな、カタカナ、基本的な漢字が読めます。',
+    aen: 'I can have simple conversations in Japanese. I can do greetings, self-introduction, shopping, and asking for directions in Japanese. I can also read hiragana, katakana, and basic kanji.',
+    tip: '💡 Be honest and specific. Don\'t oversell your ability — interviewers will test you during the interview.'
+  },
+  {
+    cat: 'misc', catLabel: 'Miscellaneous', catJp: 'その他',
+    q: '日本人の友達はいますか。', qen: 'Do you have any Japanese friends?',
+    a: 'バングラデシュではまだ日本人の友達はいませんが、SNSや言語交換アプリで日本人と話したことがあります。日本に行ったら、たくさん日本人の友達を作りたいです。',
+    aen: 'I do not have Japanese friends in Bangladesh yet, but I have spoken with Japanese people through social media and language exchange apps. When I go to Japan, I want to make many Japanese friends.',
+    tip: '💡 Showing proactive language practice (apps, SNS) is a good sign of motivation.'
+  },
+  {
+    cat: 'misc', catLabel: 'Miscellaneous', catJp: 'その他',
+    q: '学校のルールは守れますか。', qen: 'Can you follow the school\'s rules?',
+    a: 'はい、もちろんです。学校のルールをしっかり守ります。遅刻や欠席をしないようにし、他の学生や先生に迷惑をかけないよう、責任ある行動をしたいと思っています。',
+    aen: 'Yes, of course. I will strictly follow the school\'s rules. I will not be late or absent, and I want to act responsibly so as not to cause trouble for other students or teachers.',
+    tip: '💡 A-category schools have high attendance requirements (above 90%). Show you understand this.'
+  },
+  {
+    cat: 'misc', catLabel: 'Miscellaneous', catJp: 'その他',
+    q: '出席率についてどう思いますか。', qen: 'What do you think about attendance rate?',
+    a: '出席率はとても重要だと思っています。日本の学校では高い出席率が求められることを知っています。わたしは毎日必ず出席し、高い出席率を維持したいと思っています。',
+    aen: 'I think attendance rate is very important. I know that high attendance is required at Japanese schools. I intend to attend every day without fail and maintain a high attendance rate.',
+    tip: '💡 Visa renewal in Japan requires 90%+ attendance. Show you are fully aware of this requirement.'
+  },
+  {
+    cat: 'misc', catLabel: 'Miscellaneous', catJp: 'その他',
+    q: '何か質問はありますか。', qen: 'Do you have any questions?',
+    a: 'はい、あります。学校の放課後の自習室は使えますか？また、進学相談のサポートはどのくらい受けられますか？',
+    aen: 'Yes, I do. Can I use the self-study room after school? Also, how much support is available for university entrance counseling?',
+    tip: '💡 Always prepare 1–2 smart questions! Saying "nothing in particular" makes a bad impression. Ask about facilities, support, or programs.'
+  },
+  {
+    cat: 'misc', catLabel: 'Miscellaneous', catJp: 'その他',
+    q: '健康状態はどうですか。', qen: 'How is your health?',
+    a: 'わたしは健康で、特に大きな病気はありません。日本でも健康管理に気をつけ、定期的に運動し、バランスよく食事をするつもりです。',
+    aen: 'I am healthy and have no serious illnesses. In Japan, I plan to take care of my health by exercising regularly and eating a balanced diet.',
+    tip: '💡 A simple, confident answer is best. If you have a condition, be honest but show it is managed.'
+  },
+  {
+    cat: 'misc', catLabel: 'Miscellaneous', catJp: 'その他',
+    q: '日本語でむずかしいと思うことは何ですか。', qen: 'What do you find most difficult about Japanese?',
+    a: '漢字の数がとても多いので、難しいと思います。また、敬語の使い方も複雑だと感じています。でも、毎日勉強を続けることで、必ず克服できると信じています。',
+    aen: 'I find the sheer number of kanji very difficult. I also feel that the use of keigo (polite speech) is complex. However, I believe that by continuing to study every day, I can definitely overcome these challenges.',
+    tip: '💡 Honest self-awareness + determination to overcome = ideal answer formula.'
+  },
+  {
+    cat: 'misc', catLabel: 'Miscellaneous', catJp: 'その他',
+    q: '日本語の勉強方法を教えてください。', qen: 'Tell me about your Japanese study method.',
+    a: '毎日、単語と漢字を勉強しています。アプリ（Anki、Duolingo）も使っています。また、日本語の音楽やアニメを聞いて、リスニング力を鍛えています。文法は教科書で勉強しています。',
+    aen: 'Every day I study vocabulary and kanji. I also use apps like Anki and Duolingo. I also train my listening skills by listening to Japanese music and anime. For grammar, I study using textbooks.',
+    tip: '💡 Mentioning specific study tools (Anki, textbooks) shows genuine effort and planning.'
+  },
+  {
+    cat: 'misc', catLabel: 'Miscellaneous', catJp: 'その他',
+    q: '保証人はいますか。', qen: 'Do you have a guarantor?',
+    a: 'はい、わたしの保証人は〔名前〕です。〔関係・例：親戚〕で、現在〔国名または日本〕に在住しています。連絡先などの必要な情報はすべて書類に記入してあります。',
+    aen: 'Yes, my guarantor is [Name]. They are my [relationship, e.g., relative] and currently live in [country/Japan]. All necessary contact information has been filled in the documents.',
+    tip: '💡 Some schools require a guarantor in Japan. Know exactly who your guarantor is before the interview.'
+  },
+  {
+    cat: 'misc', catLabel: 'Miscellaneous', catJp: 'その他',
+    q: '最後に、一言お願いします。', qen: 'Finally, please say a few words.',
+    a: 'もし入学できましたら、一生懸命日本語を勉強し、学校のルールをしっかり守ります。必ず皆様のご期待に応えられるように努力いたします。どうぞよろしくお願いいたします。',
+    aen: 'If I am accepted, I will study Japanese very hard and strictly follow the school\'s rules. I will do my best to live up to everyone\'s expectations. Thank you very much.',
+    tip: '💡 End strong. Bow your head slightly when saying ありがとうございました. Leave on a confident, grateful note.'
+  },
+];
+
+// ── STATE ──
+let filteredQ = [...QUESTIONS];
+let currentMode = 'list';
+let fcIndex = 0;
+let fcFlipped = false;
+
+// ── RENDER LIST ──
+function renderList() {
+  const cats = {};
+  filteredQ.forEach(q => {
+    if (!cats[q.cat]) cats[q.cat] = { label: q.catLabel, jp: q.catJp, items: [] };
+    cats[q.cat].items.push(q);
+  });
+  const listEl = document.getElementById('list-mode');
+  let catNum = 0;
+  let html = '';
+  for (const key in cats) {
+    catNum++;
+    const c = cats[key];
+    html += `<div class="category-section" data-cat="${key}">
+      <div class="cat-header">
+        <div class="cat-num">0${catNum}</div>
+        <div class="cat-title-wrap">
+          <div class="cat-title-en">${c.label}</div>
+          <div class="cat-title-jp">${c.jp}</div>
+        </div>
+        <div class="cat-count-tag">${c.items.length} Q</div>
+      </div>
+      <div class="q-list">`;
+    c.items.forEach((q, i) => {
+      const globalIdx = QUESTIONS.indexOf(q);
+      html += `<div class="q-item" id="qi-${globalIdx}">
+        <div class="q-item-head">
+          <div class="q-num">${String(i+1).padStart(2,'0')}</div>
+          <div class="q-text-wrap">
+            <div class="q-label">Question / 質問</div>
+            <div class="q-jp">${q.q}</div>
+            <div class="q-en">${q.qen}</div>
+          </div>
+          <button class="q-toggle-btn" onclick="toggleAns(${globalIdx}, this)">▼</button>
+        </div>
+        <div class="q-answer" id="qa-${globalIdx}">
+          <div class="answer-block">
+            <div class="answer-label">Model Answer in Japanese</div>
+            <div class="ans-jp">${q.a}</div>
+          </div>
+          <div class="answer-block">
+            <div class="answer-label">English Translation</div>
+            <div class="ans-en">${q.aen}</div>
+          </div>
+          ${q.tip ? `<div class="ans-tip">${q.tip}</div>` : ''}
+        </div>
+      </div>`;
+    });
+    html += `</div></div>`;
+  }
+  listEl.innerHTML = html || '<p style="padding:40px;text-align:center;color:var(--dim)">No questions found.</p>';
+}
+
+function toggleAns(idx, btn) {
+  const ans = document.getElementById('qa-' + idx);
+  ans.classList.toggle('visible');
+  btn.classList.toggle('open');
+  btn.textContent = btn.classList.contains('open') ? '▲' : '▼';
+}
+
+// ── FILTER ──
+function filterCat(cat, btn) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filteredQ = cat === 'all' ? [...QUESTIONS] : QUESTIONS.filter(q => q.cat === cat);
+  document.getElementById('qCount').textContent = filteredQ.length + ' Q';
+  fcIndex = 0;
+  fcFlipped = false;
+  if (currentMode === 'list') renderList();
+  else renderFlashcard();
+}
+
+// ── MODE SWITCH ──
+function setMode(mode, btn) {
+  currentMode = mode;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const listEl = document.getElementById('list-mode');
+  const fcEl = document.getElementById('flashcard-mode');
+  if (mode === 'list') {
+    listEl.style.display = 'block';
+    fcEl.classList.remove('visible');
+    renderList();
+  } else {
+    listEl.style.display = 'none';
+    fcEl.classList.add('visible');
+    fcIndex = 0; fcFlipped = false;
+    renderFlashcard();
+  }
+}
+
+// ── FLASHCARD ──
+function renderFlashcard() {
+  if (!filteredQ.length) return;
+  const q = filteredQ[fcIndex];
+  const total = filteredQ.length;
+  document.getElementById('fcProgressBar').style.width = ((fcIndex+1)/total*100) + '%';
+  document.getElementById('fcCounter').innerHTML = `<strong>${fcIndex+1}</strong> / ${total}`;
+  document.getElementById('fcCatTag').textContent = q.catLabel;
+  document.getElementById('fcNumBg').textContent = String(fcIndex+1).padStart(2,'0');
+  document.getElementById('fcQjp').textContent = q.q;
+  document.getElementById('fcQen').textContent = q.qen;
+  document.getElementById('fcQrecap').textContent = q.q;
+  document.getElementById('fcAnsJp').textContent = q.a;
+  document.getElementById('fcAnsEn').textContent = q.aen;
+  // reset flip
+  const card = document.getElementById('flashcard');
+  card.classList.remove('flipped');
+  fcFlipped = false;
+}
+
+function flipCard() {
+  const card = document.getElementById('flashcard');
+  card.classList.toggle('flipped');
+  fcFlipped = !fcFlipped;
+}
+
+function nextCard() {
+  if (fcIndex < filteredQ.length - 1) fcIndex++;
+  else fcIndex = 0;
+  renderFlashcard();
+}
+
+function prevCard() {
+  if (fcIndex > 0) fcIndex--;
+  else fcIndex = filteredQ.length - 1;
+  renderFlashcard();
+}
+
+// Keyboard nav
+document.addEventListener('keydown', e => {
+  if (currentMode !== 'flash') return;
+  if (e.key === 'ArrowRight') nextCard();
+  if (e.key === 'ArrowLeft') prevCard();
+  if (e.key === ' ') { e.preventDefault(); flipCard(); }
+});
+
+// ── INIT ──
+renderList();
+</script>
+</body>
+</html>
