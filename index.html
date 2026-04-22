@@ -9,6 +9,9 @@
 <meta name="author" content="Sheikh Sulaiman">
 <link rel="canonical" href="https://sheikhsulaiman.github.io/japanese-school-interview/">
 
+<!-- Lenis smooth scroll -->
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+
 <!-- Favicons -->
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -1340,6 +1343,10 @@ if ('serviceWorker' in navigator) {
     console.error('SW registration failed:', err)
   );
 }
+
+const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+requestAnimationFrame(raf);
 </script>
 </body>
 </html>
