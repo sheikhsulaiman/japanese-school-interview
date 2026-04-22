@@ -3,13 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>日本語学校 面接対策 — Interview Prep</title>
+<title>Japanese Language School Interview Prep — 55 Q&amp;A with Answers (日本語学校 面接対策)</title>
+<meta name="description" content="Complete Japanese language school interview preparation guide. 55 questions and model answers in Japanese, Romaji, and English across 8 categories. A-Category level, JLPT N4–N5.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Sheikh Sulaiman">
+<link rel="canonical" href="https://sheikhsulaiman.github.io/japanese-school-interview/">
+
+<!-- Favicons -->
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Japanese Language School Interview Prep — 55 Q&amp;A">
+<meta property="og:description" content="55 interview questions and model answers in Japanese, Romaji, and English. 8 categories. A-Category level.">
+<meta property="og:url" content="https://sheikhsulaiman.github.io/japanese-school-interview/">
+<meta property="og:image" content="https://sheikhsulaiman.github.io/japanese-school-interview/android-chrome-512x512.png">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ja_JP">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Japanese Language School Interview Prep — 55 Q&amp;A">
+<meta name="twitter:description" content="55 interview questions and model answers in Japanese, Romaji, and English. 8 categories. A-Category level.">
+<meta name="twitter:image" content="https://sheikhsulaiman.github.io/japanese-school-interview/android-chrome-512x512.png">
+
+<!-- PWA -->
 <link rel="manifest" href="site.webmanifest">
 <meta name="theme-color" content="#0f0e0b">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Mensetsu">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -1289,6 +1316,24 @@ document.addEventListener('keydown', e => {
 
 // ── INIT ──
 renderList();
+
+// ── JSON-LD FAQ SCHEMA ──
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": QUESTIONS.map(q => ({
+    "@type": "Question",
+    "name": q.qen,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": q.aen
+    }
+  }))
+};
+const schemaScript = document.createElement('script');
+schemaScript.type = 'application/ld+json';
+schemaScript.textContent = JSON.stringify(faqSchema);
+document.head.appendChild(schemaScript);
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js').catch(err =>
