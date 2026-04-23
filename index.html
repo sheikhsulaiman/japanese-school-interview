@@ -593,6 +593,74 @@ body {
 .fc-btn.primary { background: var(--red); color: #fff; border-color: var(--red); }
 .fc-btn.primary:hover { background: #a0001a; border-color: #a0001a; }
 
+/* ── SPEAK BUTTON ── */
+.q-speak-btn {
+  padding: 10px 13px;
+  background: transparent;
+  border: none;
+  border-left: var(--border);
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--dim);
+  transition: background 0.1s, color 0.1s;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.q-speak-btn:hover { background: var(--gold); color: var(--ink); }
+.q-speak-btn.speaking { background: var(--gold); color: var(--ink); animation: pulse 0.8s infinite; }
+
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+.fc-speak-btn {
+  position: absolute;
+  bottom: 14px;
+  left: 16px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.45);
+  font-size: 0.62rem;
+  padding: 4px 10px;
+  cursor: pointer;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: 'DM Mono', monospace;
+  transition: all 0.1s;
+}
+.fc-speak-btn:hover { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+.fc-speak-btn.speaking { background: var(--gold); color: var(--ink); border-color: var(--gold); animation: pulse 0.8s infinite; }
+
+.ans-speak-btn {
+  background: transparent;
+  border: 1px solid rgba(200,0,26,0.3);
+  color: var(--red);
+  font-size: 0.65rem;
+  padding: 1px 7px;
+  cursor: pointer;
+  transition: all 0.1s;
+  flex-shrink: 0;
+  line-height: 1.5;
+  font-family: 'DM Mono', monospace;
+}
+.ans-speak-btn:hover { background: var(--red); color: #fff; border-color: var(--red); }
+.ans-speak-btn.speaking { background: var(--red); color: #fff; border-color: var(--red); animation: pulse 0.8s infinite; }
+
+.fc-speak-ans-btn {
+  display: inline-block;
+  margin-bottom: 10px;
+  background: transparent;
+  border: 1px solid rgba(200,0,26,0.3);
+  color: var(--red);
+  font-size: 0.6rem;
+  padding: 3px 10px;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: 'DM Mono', monospace;
+  transition: all 0.1s;
+}
+.fc-speak-ans-btn:hover { background: var(--red); color: #fff; border-color: var(--red); }
+.fc-speak-ans-btn.speaking { background: var(--red); color: #fff; animation: pulse 0.8s infinite; }
+
 /* ── ROMAJI ── */
 .q-ro {
   font-size: 0.67rem;
@@ -814,10 +882,12 @@ footer {
         <div class="fc-q-jp" id="fcQjp">質問</div>
         <div class="fc-q-en" id="fcQen">Question</div>
         <div class="fc-q-ro" id="fcQro"></div>
+        <button class="fc-speak-btn" id="fcSpeakBtn" onclick="event.stopPropagation(); speakJapanese(filteredQ[fcIndex].q, this)">🔊 Listen</button>
         <div class="fc-tap-hint">tap to reveal answer</div>
       </div>
       <div class="fc-back" id="fcBack">
         <span class="fc-back-label">Model Answer — 模範回答</span>
+        <button class="fc-speak-ans-btn" id="fcSpeakAnsBtn" onclick="event.stopPropagation(); speakJapanese(filteredQ[fcIndex].a, this)">🔊 Listen Answer</button>
         <div class="q-jp-recap" id="fcQrecap"></div>
         <div class="fc-ans-jp" id="fcAnsJp"></div>
         <div class="fc-ans-ro" id="fcAnsRo"></div>
@@ -1253,6 +1323,20 @@ let currentMode = 'list';
 let fcIndex = 0;
 let fcFlipped = false;
 
+// ── SPEECH ──
+function speakJapanese(text, btn) {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.lang = 'ja-JP';
+  utt.rate = 0.85;
+  if (btn) {
+    btn.classList.add('speaking');
+    utt.onend = utt.onerror = () => btn.classList.remove('speaking');
+  }
+  window.speechSynthesis.speak(utt);
+}
+
 // ── RENDER LIST ──
 function renderList() {
   const cats = {};
@@ -1287,11 +1371,12 @@ function renderList() {
             <div class="q-en">${q.qen}</div>
             ${ROMAJI[globalIdx]?.qr ? `<div class="q-ro">${ROMAJI[globalIdx].qr}</div>` : ''}
           </div>
+          <button class="q-speak-btn" onclick="speakJapanese(QUESTIONS[${globalIdx}].q, this)" title="Listen in Japanese">🔊</button>
           <button class="q-toggle-btn" onclick="toggleAns(${globalIdx}, this)">▼</button>
         </div>
         <div class="q-answer" id="qa-${globalIdx}">
           <div class="answer-block">
-            <div class="answer-label">Model Answer in Japanese</div>
+            <div class="answer-label">Model Answer in Japanese <button class="ans-speak-btn" onclick="event.stopPropagation(); speakJapanese(QUESTIONS[${globalIdx}].a, this)">🔊</button></div>
             <div class="ans-jp">${q.a}</div>
             ${ROMAJI[globalIdx]?.ar ? `<div class="ans-ro">${ROMAJI[globalIdx].ar}</div>` : ''}
           </div>
