@@ -57,6 +57,10 @@
 
 html { scroll-behavior: smooth; }
 
+@media (min-width: 1600px) {
+  html { zoom: 1.25; }
+}
+
 body {
   background: var(--paper);
   color: var(--ink);
@@ -589,6 +593,41 @@ body {
 .fc-btn.primary { background: var(--red); color: #fff; border-color: var(--red); }
 .fc-btn.primary:hover { background: #a0001a; border-color: #a0001a; }
 
+/* ── ROMAJI ── */
+.q-ro {
+  font-size: 0.67rem;
+  color: var(--dim);
+  margin-top: 2px;
+  font-style: italic;
+  opacity: 0.8;
+  line-height: 1.4;
+}
+.ans-ro {
+  font-size: 0.72rem;
+  color: #777;
+  line-height: 1.65;
+  margin-top: 6px;
+  padding-left: 10px;
+  border-left: 2px solid rgba(201,168,76,0.5);
+  font-style: italic;
+}
+.fc-q-ro {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.35);
+  font-style: italic;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+.fc-ans-ro {
+  font-size: 0.7rem;
+  color: #999;
+  line-height: 1.6;
+  margin-top: 6px;
+  font-style: italic;
+  padding-left: 10px;
+  border-left: 2px solid rgba(201,168,76,0.4);
+}
+
 /* ── FOOTER ── */
 footer {
   background: var(--ink);
@@ -774,12 +813,14 @@ footer {
         <div class="fc-num" id="fcNumBg">01</div>
         <div class="fc-q-jp" id="fcQjp">質問</div>
         <div class="fc-q-en" id="fcQen">Question</div>
+        <div class="fc-q-ro" id="fcQro"></div>
         <div class="fc-tap-hint">tap to reveal answer</div>
       </div>
       <div class="fc-back" id="fcBack">
         <span class="fc-back-label">Model Answer — 模範回答</span>
         <div class="q-jp-recap" id="fcQrecap"></div>
         <div class="fc-ans-jp" id="fcAnsJp"></div>
+        <div class="fc-ans-ro" id="fcAnsRo"></div>
         <div class="fc-ans-en" id="fcAnsEn"></div>
       </div>
     </div>
@@ -1147,6 +1188,65 @@ const QUESTIONS = [
   },
 ];
 
+const ROMAJI = [
+  // Self Introduction
+  { qr: 'Jiko shōkai wo shite kudasai.', ar: 'Hajimemashite. Watashi wa [Namae] to mōshimasu. [Kunimei] kara kimashita. Nenrei wa [Nenrei]-sai desu. [Daigaku/Senmongakkō] de [Senkō] wo benkyō shimashita. Shumi wa [Shumi] desu. Yoroshiku onegai itashimasu.' },
+  { qr: 'O-namae wa nan desu ka.', ar: 'Hai, watashi no namae wa [Namae] desu. Dōzo yoroshiku onegai itashimasu.' },
+  { qr: 'O-ikutsu desu ka / Nenrei wo oshiete kudasai.', ar: 'Hai, watashi wa [Nenrei]-sai desu. [Nen]-nen [Tsuki]-gatsu [Hi]-nichi umare desu.' },
+  { qr: 'Doko kara kimashita ka / Shusshin wa doko desu ka.', ar: 'Banguradeshu kara kimashita. Banguradeshu wa Ajia ni aru kuni de, shuto wa Dakka desu. Jinkō wa yaku ichi-oku nana-sen-man-nin desu.' },
+  { qr: 'Go-kazoku ni tsuite oshiete kudasai.', ar: 'Kazoku wa [Ninzū]-nin desu. Chichi to haha to [kyōdai shimai] ga imasu. Chichi wa [shokugyō] de, haha wa [shokugyō] wo shite imasu. Kazoku wa totemo naka ga yoi desu.' },
+  { qr: 'Shumi wa nan desu ka.', ar: 'Watashi no shumi wa [Shumi] desu. [Shumi] wo suru toki, totemo tanoshii desu. Nihon demo tsuzuketai to omotte imasu.' },
+  { qr: 'Seikaku wo oshiete kudasai.', ar: 'Watashi wa sekinin-kan ga tsuyoku, majime na seikaku desu. Mata, hito to hanasu koto ga suki de, akarui seikaku da to omoimasu. Komatta toki wa, akiramezu ni ganbarimasu.' },
+  // Study Goals
+  { qr: 'Naze Nihongo wo benkyō shitai no desu ka.', ar: 'Nihongo wa sekai de totemo jūyō na gengo desu. Mata, Nihon no bunka ya anime, bijinesu ni kyōmi ga arimasu. Nihongo wo hanaseru yō ni naru koto de, shōrai no shigoto ni yakudatetai to omotte imasu.' },
+  { qr: 'Naze kono gakkō wo erabimashita ka.', ar: 'Kono gakkō wa yūshū na sensei-gata to yoi karikyuramu ga aru to kikimashita. Mata, JLPT no tame no taisaku jugyō mo ari, daigaku shingaku no sapōto mo jūjitsu shite iru to omotta kara desu.' },
+  { qr: 'Dono kurai Nihongo wo benkyō shimashita ka.', ar: '[Kikan]-kan, Nihongo wo benkyō shite imasu. Genzai wa JLPT N4 no reberu desu. Hiragana to katakana wa zenbu yomemasu. Kanji mo sukoshi benkyō shimashita.' },
+  { qr: 'Nihongo gakkō wo deta ato, dō shitai desu ka.', ar: 'Nihongo gakkō wo sotsugyō shita ato, Nihon no daigaku mata wa senmongakkō ni shingaku shitai to omotte imasu. [Senkō] wo senmon-teki ni manabi, shōrai wa sono bunya de katsuyaku shitai desu.' },
+  { qr: 'Donna benkyō wo shitai desu ka.', ar: 'Nihongo no kaiwa to bunpō wo shikkari benkyō shitai desu. Mata, JLPT no N2 mata wa N1 wo shutoku suru koto wo mokuhyō ni shite imasu. Daigaku shingaku no tame ni senmon-teki na Nihongo mo manabitai desu.' },
+  { qr: 'Daigaku ya senmongakkō de nani wo benkyō shitai desu ka.', ar: '[Senkō bunya] wo benkyō shitai desu. Nazenara, [Riyū] dakara desu. Shōrai wa [shokugyō] ni naritai to omotte imasu.' },
+  // Daily Life
+  { qr: 'Mainichi, nan-jikan Nihongo wo benkyō shite imasu ka.', ar: 'Mainichi, daitai [jikan]-jikan benkyō shite imasu. Asa wa tango wo oboete, yoru wa bunpō wo renshū shite imasu. Shūmatsu wa motto benkyō suru jikan ga arimasu.' },
+  { qr: 'Nihon ni kitara, donna seikatsu wo shitai desu ka.', ar: 'Nihon ni kitara, mainichi isshōkenmei Nihongo wo benkyō shitai desu. Kisoku-tadashii seikatsu wo okuri, arubaito wo shinagara seikatsuhi no ichibu wo makanatai to omotte imasu. Mata, Nihon no bunka mo taiken shitai desu.' },
+  { qr: 'Arubaito wo shimasu ka.', ar: 'Hai, shū ni [jikan]-jikan hodo arubaito wo shitai to omotte imasu. Shikashi, benkyō ga ichiban taisetsu da to omotte iru node, arubaito wa benkyō ni eikyō shinai han\'i de shimasu.' },
+  { qr: 'Nihon de hitori-gurashi wa dekimasu ka.', ar: 'Hai, hitori-gurashi wa dekiru to omoimasu. Ryōri ya sentaku nado mo jibun de dekimasu. Mata, kisoku-tadashii seikatsu wo kokorogakemasu. Komatta toki wa, gakkō no sensei ya tomodachi ni sōdan shimasu.' },
+  { qr: 'Nihon no tabemono wa taberaremasu ka.', ar: 'Hai, taberaremasu. Nihon ryōri wa totemo suki desu. Toku ni rāmen ya o-sushi ga suki desu. Banguradeshu demo Nihon ryōri wo tabeta koto ga arimasu.' },
+  { qr: 'Nihon no fuyu ya natsu wa dō desu ka.', ar: 'Nihon no natsu wa totemo atsuku shikke ga ōi to kiite imasu. Fuyu wa samui desu ga, yuki wo mite mitai desu. Dochira mo tanoshimi ni shite imasu. Shikkari junbi wo shite, taichō kanri wo shitai desu.' },
+  // About Japan
+  { qr: 'Naze Nihon ni kitai desu ka.', ar: 'Nihon wa kyōiku suijun ga takaku, anzen de, gijutsu ga hattatsu shita kuni da to omoimasu. Mata, Nihongo to Nihon no bunka wo chokusetsu manaberu saikō no kankyō da to omotte imasu. Shōrai no kyaria no tame ni mo, Nihon de benkyō suru koto ga ichiban yoi to kangaete imasu.' },
+  { qr: 'Nihon ni tsuite shitte iru koto wo oshiete kudasai.', ar: 'Nihon wa Higashi-Ajia ni ichi suru shimaguni de, shuto wa Tōkyō desu. Jinkō wa yaku ichi-oku ni-sen-man-nin desu. Nihon wa keizai taikoku de ari, tekunorojī, anime, shoku bunka demo sekai-teki ni yūmei desu. Mata, reigi-tadashisa to seiketsu-sa no bunka demo shirarete imasu.' },
+  { qr: 'Nihon no bunka de kyōmi ga aru mono wa nan desu ka.', ar: 'Nihon no dentō bunka, toku ni sadō ya kendō, ukiyo-e ni kyōmi ga arimasu. Mata, Nihon no gendai bunka de aru anime ya manga mo suki desu. Nihon ni ittara, o-matsuri ya jinja mo otozurete mitai desu.' },
+  { qr: 'Nihon e itta koto ga arimasu ka.', ar: 'Iie, mada itta koto ga arimasen. Shikashi, itsumo Nihon ni ikitai to omotte imashita. Konkai, Nihongo gakkō ni nyūgaku suru koto de, yōyaku sono yume ga kanaimasu.' },
+  { qr: 'Nihon no donna tokoro ni itte mitai desu ka.', ar: 'Tōkyō ya Kyōto ni itte mitai desu. Tōkyō wa gendai-teki de nigiyaka na toshi, Kyōto wa rekishi-teki na jinja ya o-tera ga ōi to kiite imasu. Mata, Fujisan mo mite mitai desu.' },
+  { qr: 'Nihongo to Nihon no bunka wo doko de manabimashita ka.', ar: 'Nihongo wa [gakushū kikan/dokugaku] de manabimashita. Mata, Nihon no anime ya eiga wo mitari, Nihongo no hon wo yondari shite, bunka ni tsuite mo manabimashita.' },
+  // Finance
+  { qr: 'Nihon de no seikatsuhi wa dō suru tsumori desu ka.', ar: 'Seikatsuhi wa omoni kazoku kara no shiokuri de makanau yotei desu. Mata, shū ni [jikan]-jikan hodo arubaito wo shite, seikatsuhi no ichibu wo jibun de kasegu tsumori desu. Kazoku wa watashi no ryūgaku wo ōen shite kurete imasu.' },
+  { qr: 'Gakuhi wa dono yō ni haraimasu ka.', ar: 'Gakuhi wa kazoku ga junbi shite kurete imasu. [Chichi/Haha/Ani] ga [shokugyō] wo shite ori, maitsuki [kingaku]-en wo shiokuri shite morau yotei desu. Ginkō ni jūbun na shikin ga arimasu.' },
+  { qr: 'Go-ryōshin no shigoto to shūnyū wo oshiete kudasai.', ar: 'Chichi wa [shokugyō] wo shite ori, maitsuki [kingaku]-taka (yaku [en]-en) wo kaseide imasu. Haha wa [shokugyō] desu. Kazoku no keizai jōkyō wa antei shite imasu.' },
+  { qr: 'Ryūgaku hiyō no mitōshi ni tsuite oshiete kudasai.', ar: 'Nihongo gakkō no gakuhi to seikatsuhi wo awasete, tsuki ni yaku [kingaku]-man-en ga hitsuyō da to keisan shite imasu. Kazoku kara no shiokuri to arubaito de, mondai naku makanaeru to omotte imasu.' },
+  // Future Plans
+  { qr: 'Shōrai, nani ni naritai desu ka.', ar: 'Shōrai wa [shokugyō] ni naritai desu. Nihon de [senkō] wo mananda chishiki to sukiru wo ikashite, [kunimei] mata wa Nihon de katsuyaku shitai to omotte imasu.' },
+  { qr: 'Sotsugyō-go, Nihon ni nokorimasu ka, soretomo kikoku shimasu ka.', ar: 'Daigaku mata wa senmongakkō wo sotsugyō shita ato, Nihon de shūshoku shitai to omotte imasu. Shikashi, shōrai-teki ni wa, shūtoku shita gijutsu ya chishiki wo bokoku ni mochi kaeri, kōken shitai to iu kimochi mo arimasu.' },
+  { qr: 'Nihon de no kyaria puran wo oshiete kudasai.', ar: 'Mazu Nihongo gakkō de JLPT N2 ijō wo shutoku shi, sono ato [senmongakkō/daigaku] ni shingaku shimasu. Senmon-teki na chishiki wo mi ni tsuketa ato, Nihon no [gyōkai] no kaisha ni shūshoku shitai to omotte imasu.' },
+  { qr: 'Nihongo ga umaku nattara, nani wo shitai desu ka.', ar: 'Nihongo ga jōzu ni nattara, Nihonjin no tomodachi wo takusan tsukuritai desu. Mata, Nihon no daigaku ya senmongakkō ni shingaku shi, senmon-teki na benkyō wo shikkari shitai desu. Shōrai wa Nihongo wo tsukatte shigoto wo shitai desu.' },
+  // Motivation
+  { qr: 'Ryūgaku no mokuteki wo oshiete kudasai.', ar: 'Ryūgaku no mokuteki wa, Nihongo wo shūtoku shi, Nihon no kōtō kyōiku wo ukeru koto desu. Banguradeshu de wa erarenai senmon-teki na chishiki to sukiru wo Nihon de mi ni tsuke, shōrai no kyaria ni ikashitai to omotte imasu.' },
+  { qr: 'Nihongo no benkyō wa tanoshii desu ka. Donna tokoro ga muzukashii desu ka.', ar: 'Hai, Nihongo no benkyō wa totemo tanoshii desu. Toku ni atarashii tango wo oboeru to ureshii desu. Muzukashii no wa, kanji to keigo desu. Demo, mainichi renshū shite, kanarazu kokufuku shitai to omotte imasu.' },
+  { qr: 'Naze Nihongo gakkō no naka demo kono gakkō ni kitai to omotta no desu ka.', ar: 'Kono gakkō wa shingaku jisseki ga yoku, sensei-gata no shidōryoku ga takai to hyōban da to kiite imasu. Mata, ryūgakusei e no sapōto mo jūjitsu shite iru node, anshin shite benkyō ni shūchū dekiru to omoimashita.' },
+  { qr: 'Benkyō de komatta toki, dō shimasu ka.', ar: 'Benkyō de komatta toki wa, mazu jibun de shirabemasu. Soredemo kaiketsu shinai baai wa, sensei ya tomodachi ni shitsumon shimasu. Konnan na koto ga atte mo, akiramenai de doryoku suru koto ga taisetsu da to omotte imasu.' },
+  { qr: 'Nihon ni kuru koto ni fuan wa arimasu ka.', ar: 'Sukoshi fuan na kimochi mo arimasu ga, sore yori mo tanoshimi na kimochi no hō ga ōkii desu. Gengo ya bunka no chigai ni tomadou koto mo aru to omoimasu ga, isshōkenmei benkyō shite, hayaku naretai to omotte imasu.' },
+  // Miscellaneous
+  { qr: 'Nihongo de donna koto ga dekimasu ka.', ar: 'Nihongo de kantan na kaiwa ga dekimasu. Aisatsu, jiko shōkai, kaimono, michi annai nado wa Nihongo de dekimasu. Mata, hiragana, katakana, kihon-teki na kanji ga yomemasu.' },
+  { qr: 'Nihonjin no tomodachi wa imasu ka.', ar: 'Banguradeshu de wa mada Nihonjin no tomodachi wa imasen ga, SNS ya gengo kōkan apuri de Nihonjin to hanashita koto ga arimasu. Nihon ni ittara, takusan Nihonjin no tomodachi wo tsukuritai desu.' },
+  { qr: 'Gakkō no rūru wa mamoremasu ka.', ar: 'Hai, mochiron desu. Gakkō no rūru wo shikkari mamorimasu. Chikoku ya kesseki wo shinai yō ni shi, hoka no gakusei ya sensei ni meiwaku wo kakenai yō, sekinin aru kōdō wo shitai to omotte imasu.' },
+  { qr: 'Shusseki-ritsu ni tsuite dō omoimasu ka.', ar: 'Shusseki-ritsu wa totemo jūyō da to omotte imasu. Nihon no gakkō de wa takai shusseki-ritsu ga motomerareru koto wo shitte imasu. Watashi wa mainichi kanarazu shusseki shi, takai shusseki-ritsu wo iji shitai to omotte imasu.' },
+  { qr: 'Nani ka shitsumon wa arimasu ka.', ar: 'Hai, arimasu. Gakkō no hōkago no jishūshitsu wa tsukaemasu ka? Mata, shingaku sōdan no sapōto wa dono kurai ukeraremasu ka?' },
+  { qr: 'Kenkō jōtai wa dō desu ka.', ar: 'Watashi wa kenkō de, toku ni ōkina byōki wa arimasen. Nihon de mo kenkō kanri ni ki wo tsuke, teiki-teki ni undō shi, baransu yoku shokuji wo suru tsumori desu.' },
+  { qr: 'Nihongo de muzukashii to omou koto wa nan desu ka.', ar: 'Kanji no kazu ga totemo ōi node, muzukashii to omoimasu. Mata, keigo no tsukaikata mo fukuzatsu da to kanjite imasu. Demo, mainichi benkyō wo tsuzukeru koto de, kanarazu kokufuku dekiru to shinjite imasu.' },
+  { qr: 'Nihongo no benkyō hōhō wo oshiete kudasai.', ar: 'Mainichi, tango to kanji wo benkyō shite imasu. Apuri (Anki, Duolingo) mo tsukatte imasu. Mata, Nihongo no ongaku ya anime wo kiite, risuningu-ryoku wo kitaete imasu. Bunpō wa kyōkasho de benkyō shite imasu.' },
+  { qr: 'Hoshōnin wa imasu ka.', ar: 'Hai, watashi no hoshōnin wa [Namae] desu. [Kankei, rei: shinseki] de, genzai [kunimei mata wa Nihon] ni zaijū shite imasu. Renrakusaki nado no hitsuyō na jōhō wa subete shorui ni kinyū shite arimasu.' },
+  { qr: 'Saigo ni, hitokoto onegai shimasu.', ar: 'Moshi nyūgaku dekimashitara, isshōkenmei Nihongo wo benkyō shi, gakkō no rūru wo shikkari mamorimasu. Kanarazu mina-sama no go-kitai ni kotaerareru yō ni doryoku itashimasu. Dōzo yoroshiku onegai itashimasu.' },
+];
+
 // ── STATE ──
 let filteredQ = [...QUESTIONS];
 let currentMode = 'list';
@@ -1185,6 +1285,7 @@ function renderList() {
             <div class="q-label">Question / 質問</div>
             <div class="q-jp">${q.q}</div>
             <div class="q-en">${q.qen}</div>
+            ${ROMAJI[globalIdx]?.qr ? `<div class="q-ro">${ROMAJI[globalIdx].qr}</div>` : ''}
           </div>
           <button class="q-toggle-btn" onclick="toggleAns(${globalIdx}, this)">▼</button>
         </div>
@@ -1192,6 +1293,7 @@ function renderList() {
           <div class="answer-block">
             <div class="answer-label">Model Answer in Japanese</div>
             <div class="ans-jp">${q.a}</div>
+            ${ROMAJI[globalIdx]?.ar ? `<div class="ans-ro">${ROMAJI[globalIdx].ar}</div>` : ''}
           </div>
           <div class="answer-block">
             <div class="answer-label">English Translation</div>
@@ -1282,8 +1384,12 @@ function renderFlashcard() {
   document.getElementById('fcNumBg').textContent = String(fcIndex+1).padStart(2,'0');
   document.getElementById('fcQjp').textContent = q.q;
   document.getElementById('fcQen').textContent = q.qen;
+  const roIdx = QUESTIONS.indexOf(q);
+  const ro = ROMAJI[roIdx] || {};
+  document.getElementById('fcQro').textContent = ro.qr || '';
   document.getElementById('fcQrecap').textContent = q.q;
   document.getElementById('fcAnsJp').textContent = q.a;
+  document.getElementById('fcAnsRo').textContent = ro.ar || '';
   document.getElementById('fcAnsEn').textContent = q.aen;
   // reset flip
   const card = document.getElementById('flashcard');
