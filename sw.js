@@ -1,4 +1,4 @@
-const CACHE = 'mensetsu-v1';
+const CACHE = 'mensetsu-v2';
 const ASSETS = [
   './',
   './index.html',
